@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Globalization;
 using static Calculator.Models.Calculator;
 
 namespace Calculator.ViewModels
@@ -67,7 +68,7 @@ namespace Calculator.ViewModels
         {
             get
             {
-                string result = ParseString(_calculator.MainOperand.ToString());
+                string result = ParseString(_calculator.MainOperand.ToString("#,##0.######"));
 
                 if (_calculator.isBeginDot)
                     result += ",";
@@ -91,10 +92,10 @@ namespace Calculator.ViewModels
                 switch (_calculator.Statement)
                 {
                     case Statements.ENTERING_SECOND:
-                        return ParseString($"{_calculator.SecondOperand.ToString()} {_calculator.symbol}");
+                        return ParseString($"{_calculator.SecondOperand.ToString("#,##0.######")} {_calculator.symbol}");
 
                     case Statements.SHOWING_RESULT:
-                        return ParseString($"{_calculator.SecondOperand.ToString()} {_calculator.symbol} {_calculator.lastMainOperand.ToString()} =");
+                        return ParseString($"{_calculator.SecondOperand.ToString("#,##0.######")} {_calculator.symbol} {_calculator.lastMainOperand.ToString("#,##0.######")} =");
 
                     default:
                         return "";
