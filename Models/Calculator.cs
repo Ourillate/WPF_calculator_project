@@ -74,6 +74,7 @@ namespace Calculator.Models
         } = Statements.ENTERING_FIRST;
 
         public Operations operation = Operations.NONE;
+        private bool isAfterOperation = false;
         public string? symbol = "";
 
         // Первый операнд для выполняемой операции
@@ -114,9 +115,10 @@ namespace Calculator.Models
             {
                 Reset();
             }
-            else if(Statement == Statements.ENTERING_SECOND && MainOperand != 0)
+            else if (isAfterOperation)
             {
                 MainOperand = 0;
+                isAfterOperation = false;
             }
 
             if (MainOperand != 0)
@@ -228,6 +230,7 @@ namespace Calculator.Models
             {
                 Statement = Statements.ENTERING_SECOND;
                 SecondOperand = MainOperand;
+                isAfterOperation = true;
             }
             else
             {
